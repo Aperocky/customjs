@@ -97,11 +97,11 @@ function askerProficiency(){
     }, 5000);
 })();
 
-let toggleDesirable = (function toggleController(){
+let toggleDesirable = (function (){
     let isHidden = true;
-    let linkWords = ["Filter Tags", "Unfilter"];
+    let linkWords = ["UnFilter", "Filter Tags"];
     let displayVar = ["flex", "none"];
-    return function toggleDesirable(event){
+    return function (event){
         event.preventDefault();
         let desirables = document.querySelectorAll("div.question-summary");
         for (let i = 0; i < desirables.length; i++){
@@ -110,7 +110,6 @@ let toggleDesirable = (function toggleController(){
             for (let j = 0; j < tags.length; j++){
                 if (unwatch.has(tags[j].text)){
                     desirables[i].style.display = displayVar[isHidden ? 1 : 0];
-                    console.log(`Remove ${title} because it has ${tags[j].text}`);
                     break;
                 }
             }
@@ -118,6 +117,25 @@ let toggleDesirable = (function toggleController(){
     isHidden = !isHidden;
     let target = event.target;
     target.textContent = linkWords[isHidden ? 1 : 0];
+    };
+})();
+
+let toggleSideBar = (function (){
+    let toggleT = true;
+    let linkWords = ["SideBar On", "SideBar Off"]
+    let displayVar = ["block", "none"];
+    let mainBarADJ = ["- 300px", ""];
+    return function (event){
+        event.preventDefault();
+        let sideBar = document.querySelector("div#sidebar");
+        if (sideBar){
+            sideBar.style.display = displayVar[toggleT ? 1 : 0]
+        }
+        let mainBar = document.querySelector("div#mainbar")
+        mainBar.style.width = `calc(100% ${mainBarADJ[toggleT ? 1 : 0]} - 24px)`;
+        toggleT = !toggleT;
+        let target = event.target;
+        target.textContent = linkWords[toggleT ? 1 : 0];
     };
 })();
 
@@ -146,8 +164,10 @@ let toggleDesirable = (function toggleController(){
         return link
     };
 
-    let toggleD = newlink("hide", toggleDesirable);
+    let toggleD = newlink("Filter Tags", toggleDesirable);
+    let toggleS = newlink("SideBar Off", toggleSideBar);
 
     sideNav.appendChild(node);
     sideNav.appendChild(toggleD);
+    sideNav.appendChild(toggleS)
 })();
