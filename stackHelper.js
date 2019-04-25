@@ -70,17 +70,18 @@ function askerProficiency(){
         */
         askerinfo.style.borderRadius = "5px";
         askerinfo.style.border = "1px solid"
-        if (reputation.innerText.includes("k")){
-            askerinfo.style.backgroundColor = "#FFEE88"
-        } else if (reputation.innerText.includes(",")){
-            askerinfo.style.backgroundColor = "#afa";
-        } else if (reputation.innerText > 100){
-            askerinfo.style.backgroundColor = "#cfc";
-        } else if (reputation.innerText < 10){
-            // new users
-            askerinfo.style.backgroundColor = "#E9D0AF";
-        } else {
-            askerinfo.style.backgroundColor = "#eee";
+        if (reputation){
+            if (reputation.innerText.includes("k")){
+                askerinfo.style.backgroundColor = "#FFEE88"
+            } else if (reputation.innerText.includes(",")){
+                askerinfo.style.backgroundColor = "#afa";
+            } else if (reputation.innerText > 100){
+                askerinfo.style.backgroundColor = "#cfc";
+            } else if (reputation.innerText < 10){
+                askerinfo.style.backgroundColor = "#E9D0AF";
+            } else {
+                askerinfo.style.backgroundColor = "#eee";
+            }
         }
     }
 }
