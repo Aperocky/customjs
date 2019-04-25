@@ -8,16 +8,17 @@
 // @grant        none
 // ==/UserScript==
 
+let watchtags = new Set(["python", "pandas", "numpy", "algorithm", "python-requests", "flask",
+                         "scipy", "multithreading", "matplotlib", "sklearn", "regex", "text",
+                         "bash", "html", "list", "dictionary", "selenium", "beautifulsoup"]);
+// Tags you don't want to see/answer.
+let unwatch = new Set(["keras", "tensorflow", "android", "pygame", "pytorch",
+                       "tkinter", "aws", "amazon-s3", "sympy", "php", "opencv",
+                       "sql-server", "c#", "windows", "qt"]);
+
 function highlightTags() {
     let posttags = document.querySelectorAll("a.post-tag");
     // Tags you want to see/answer.
-    let watchtags = new Set(["python", "pandas", "numpy", "algorithm", "python-requests", "flask",
-                             "scipy", "multithreading", "matplotlib", "sklearn", "regex", "text",
-                             "bash", "html", "list", "dictionary", "selenium", "beautifulsoup"]);
-    // Tags you don't want to see/answer.
-    let unwatch = new Set(["keras", "tensorflow", "android", "pygame", "pytorch",
-                           "tkinter", "aws", "amazon-s3", "sympy", "php", "opencv",
-                           "sql-server", "c#", "windows", "qt"]);
     for (let i = 0; i < posttags.length; i++){
         let taglabel = posttags[i].text;
         /*
@@ -94,4 +95,59 @@ function askerProficiency(){
     setTimeout(function(){
         looper();
     }, 5000);
+})();
+
+let toggleDesirable = (function toggleController(){
+    let isHidden = true;
+    let linkWords = ["Filter Tags", "Unfilter"];
+    let displayVar = ["flex", "none"];
+    return function toggleDesirable(event){
+        event.preventDefault();
+        let desirables = document.querySelectorAll("div.question-summary");
+        for (let i = 0; i < desirables.length; i++){
+            let title = desirables[i].querySelector("a.question-hyperlink").text;
+            let tags = desirables[i].querySelectorAll("a.post-tag");
+            for (let j = 0; j < tags.length; j++){
+                if (unwatch.has(tags[j].text)){
+                    desirables[i].style.display = displayVar[isHidden ? 1 : 0];
+                    console.log(`Remove ${title} because it has ${tags[j].text}`);
+                    break;
+                }
+            }
+        }
+    isHidden = !isHidden;
+    let target = event.target;
+    target.textContent = linkWords[isHidden ? 1 : 0];
+    };
+})();
+
+(function addNavSection(){
+    // Stackoverflow default sidebar.
+    let sideNav = document.querySelector("ol.nav-links");
+
+    // Adding this custom element to the end of it.
+    let node = document.createElement("ol");
+    node.className = "nav-links";
+
+    let banner = (function getBanner(){
+        let banner = document.createElement("li");
+        banner.className = "fs-fine tt-uppercase ml8 mt16 mb4 fc-light";
+        banner.textContent = "STACK HELPER";
+        node.appendChild(banner);
+    })();
+
+    let newlink = function getLinks(text, func){
+        let link = document.createElement("li")
+        let innerlink = document.createElement("a")
+        innerlink.className = "js-gps-track nav-links--link";
+        innerlink.textContent = text;
+        innerlink.addEventListener("click", func);
+        link.appendChild(innerlink)
+        return link
+    };
+
+    let toggleD = newlink("hide", toggleDesirable);
+
+    sideNav.appendChild(node);
+    sideNav.appendChild(toggleD);
 })();
