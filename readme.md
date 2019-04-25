@@ -4,13 +4,11 @@ Custom tampermonkey script to make frequented website *that* much more informati
 
 ## stackHelper.js
 
-<img src="/images/SC_9.png" width="600px">
+<img src="/images/SC_12.png" width="70%">
 
 Display your favorite tags in gold, avoided tags in brown, and sorts the user in a nicely colored card by their reputation. Highlights unanswered questions - also when new questions pop up, it will automatically click that link to get new questions. Helps answerer to quickly filter for question by both quality and their own specialties.
 
 ### Additional NavBar Options: [STACK HELPER]
-
-![A small sidebar to toggle unwanted tag and the SideBar](/images/SC_11.png){:height="25%" width="25%"}
 
 Filter/UnFilter: removes all the question that has unwanted tags in the queue.
 
