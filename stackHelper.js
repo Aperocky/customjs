@@ -107,10 +107,15 @@ let toggleDesirable = (function (){
         for (let i = 0; i < desirables.length; i++){
             let title = desirables[i].querySelector("a.question-hyperlink").text;
             let tags = desirables[i].querySelectorAll("a.post-tag");
-            for (let j = 0; j < tags.length; j++){
-                if (unwatch.has(tags[j].text)){
-                    desirables[i].style.display = displayVar[isHidden ? 1 : 0];
-                    break;
+            let events = ["[duplicate]", "[on hold]"];
+            if (events.some((e) => {return title.includes(e)})){
+                desirables[i].style.display = displayVar[isHidden ? 1 : 0];
+            } else {
+                for (let j = 0; j < tags.length; j++){
+                    if (unwatch.has(tags[j].text)){
+                        desirables[i].style.display = displayVar[isHidden ? 1 : 0];
+                        break;
+                    }
                 }
             }
         }
@@ -169,5 +174,5 @@ let toggleSideBar = (function (){
 
     sideNav.appendChild(node);
     sideNav.appendChild(toggleD);
-    sideNav.appendChild(toggleS)
+    sideNav.appendChild(toggleS);
 })();
