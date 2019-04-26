@@ -4,7 +4,7 @@
 // @version      1.0
 // @description  Stackoverflow helper to make question *very* clear
 // @author       Rocky Li
-// @match        https://stackoverflow.com/questions/*
+// @match        https://stackoverflow.com/*
 // @grant        none
 // ==/UserScript==
 
@@ -127,7 +127,7 @@ let toggleDesirable = (function (){
 
 let toggleSideBar = (function (){
     let toggleT = true;
-    let linkWords = ["SideBar On", "SideBar Off"]
+    let linkWords = ["SideBar Off", "SideBar On"]
     let displayVar = ["block", "none"];
     let mainBarADJ = ["- 300px", ""];
     return function (event){
@@ -143,6 +143,7 @@ let toggleSideBar = (function (){
         target.textContent = linkWords[toggleT ? 1 : 0];
     };
 })();
+
 
 (function addNavSection(){
     // Stackoverflow default sidebar.
