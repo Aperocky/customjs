@@ -12,6 +12,8 @@
 
 * Automatically click on the *x new questions* pop up when you're sorting by newest.
 
+* When answersToQuestion === 0, highlight in transparent blue to make it very clear.
+
 **NAVBAR OPTIONS**
 
 stackHelper adds a small section to the bottom of left navbar:
