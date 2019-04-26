@@ -1,19 +1,21 @@
-## CUSTOMJS
-
-Custom tampermonkey script to make frequented website *that* much more informative and fun!
-
 ## stackHelper.js
 
 <img src="/images/SC_12.png" width="70%">
 
-Display your favorite tags in gold, avoided tags in brown, and sorts the user in a nicely colored card by their reputation. Highlights unanswered questions - also when new questions pop up, it will automatically click that link to get new questions. Helps answerer to quickly filter for question by both quality and their own specialties.
+**Features**:
 
-### Additional (left) NavBar Option [STACK HELPER]
+* Display liked tags in gold
 
----
+* Display unliked tags in brown
 
-Filter/UnFilter: removes all the question that has unwanted tags in the queue.
+* Color user card by reputation (brown -> silver -> light green -> green -> gold)
 
-Sidebar On/Off: Removes the right sidebar and let the main content go all the way to the right.
+* Automatically click on the *x new questions* pop up when you're sorting by newest.
 
-works both on question queue and in individual questions
+**NAVBAR OPTIONS**
+
+stackHelper adds a small section to the bottom of left navbar:
+
+* Filter Tags / Unfilter: removes all the question that has unwanted tags in the queue. Also removes question that has been marked as duplicate or on hold
+
+* Sidebar On/Off: Removes the right sidebar and let the main content go all the way to the right.
