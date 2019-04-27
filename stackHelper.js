@@ -144,6 +144,15 @@ let toggleSideBar = (function (){
     };
 })();
 
+let toggleFullScreen = (() => {
+    let toggleF = true;
+    return (event) => {
+        event.preventDefault();
+        if (toggleF) {document.documentElement.requestFullscreen();}
+        else {document.exitFullscreen();}
+        toggleF = !toggleF;
+    }
+})();
 
 (function addNavSection(){
     // Stackoverflow default sidebar.
@@ -172,8 +181,10 @@ let toggleSideBar = (function (){
 
     let toggleD = newlink("Filter Tags", toggleDesirable);
     let toggleS = newlink("SideBar Off", toggleSideBar);
+    let toggleF = newlink("Fullscreen", toggleFullScreen);
 
     sideNav.appendChild(node);
     sideNav.appendChild(toggleD);
     sideNav.appendChild(toggleS);
+    sideNav.appendChild(toggleF);
 })();

@@ -21,3 +21,5 @@ stackHelper adds a small section to the bottom of left navbar:
 * Filter Tags / Unfilter: removes all the question that has unwanted tags in the queue. Also removes question that has been marked as duplicate or on hold
 
 * Sidebar On/Off: Removes the right sidebar and let the main content go all the way to the right.
+
+* Fullscreen: Get rid of the browser top bar (requires browser unlock requestFullscreen() function)
