@@ -16,6 +16,11 @@ let unwatch = new Set(["keras", "tensorflow", "android", "pygame", "pytorch",
                        "tkinter", "aws", "amazon-s3", "sympy", "php", "opencv",
                        "sql-server", "c#", "windows", "qt"]);
 
+let getCookie = function(name) {
+   match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+   if (match) return match[2];
+};
+
 function highlightTags() {
     let posttags = document.querySelectorAll("a.post-tag");
     // Tags you want to see/answer.
@@ -87,6 +92,28 @@ function askerProficiency(){
     }
 }
 
+// Maintain the layout throughout a stackoverflow session
+function maintainLayout() {
+    let sideBarStatus = getCookie("sidebar");
+    let filterStatus = getCookie("filtertag")
+    console.log(sideBarStatus);
+    if (sideBarStatus!=null){
+        if (sideBarStatus == "false"){
+            let sideBar = document.querySelector("div#sidebar");
+            if (sideBar){
+                sideBar.style.display = "none";
+            }
+            let mainBar = document.querySelector("div#mainbar");
+            mainBar.style.width = "calc(100% - 24px)";
+        }
+    }
+}
+
+// initfunc
+(() => {
+    maintainLayout();
+})();
+
 (function looper() {
     clickOnNew();
     highlightTags();
@@ -119,14 +146,18 @@ let toggleDesirable = (function (){
                 }
             }
         }
-    isHidden = !isHidden;
-    let target = event.target;
-    target.textContent = linkWords[isHidden ? 1 : 0];
+        isHidden = !isHidden;
+        let target = event.target;
+        target.textContent = linkWords[isHidden ? 1 : 0];
     };
 })();
 
 let toggleSideBar = (function (){
+    let cache = getCookie("sidebar");
     let toggleT = true;
+    if (cache!=null){
+        toggleT = (cache == "true");
+    }
     let linkWords = ["SideBar Off", "SideBar On"]
     let displayVar = ["block", "none"];
     let mainBarADJ = ["- 300px", ""];
@@ -141,6 +172,7 @@ let toggleSideBar = (function (){
         toggleT = !toggleT;
         let target = event.target;
         target.textContent = linkWords[toggleT ? 1 : 0];
+        document.cookie = `sidebar=${toggleT}`;
     };
 })();
 
