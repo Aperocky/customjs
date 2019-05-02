@@ -95,8 +95,7 @@ function askerProficiency(){
 // Maintain the layout throughout a stackoverflow session
 function maintainLayout() {
     let sideBarStatus = getCookie("sidebar");
-    let filterStatus = getCookie("filtertag")
-    console.log(sideBarStatus);
+    let fullscreenStatus = getCookie("fullscreen");
     if (sideBarStatus!=null){
         if (sideBarStatus == "false"){
             let sideBar = document.querySelector("div#sidebar");
@@ -105,6 +104,11 @@ function maintainLayout() {
             }
             let mainBar = document.querySelector("div#mainbar");
             mainBar.style.width = "calc(100% - 24px)";
+        }
+    }
+    if (fullscreenStatus!=null){
+        if (fullscreenStatus=="true"){
+            document.documentElement.requestFullscreen();
         }
     }
 }
@@ -178,10 +182,15 @@ let toggleSideBar = (function (){
 
 let toggleFullScreen = (() => {
     let toggleF = true;
+    let cache;
+    if (cache = getCookie("fullscreen") != null){
+        toggleF = (cache == "true")
+    }
     return (event) => {
         event.preventDefault();
         if (toggleF) {document.documentElement.requestFullscreen();}
         else {document.exitFullscreen();}
+        document.cookie = `fullscreen=${toggleF}`;
         toggleF = !toggleF;
     }
 })();
